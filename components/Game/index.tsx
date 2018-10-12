@@ -6,7 +6,8 @@ import GameOverlay, { PointSprite } from "./GameOverlay";
 import { GameViewContainer } from "./styles";
 
 const GameCanvas = dynamic<TurnProps>(import("./GameCanvas") as any, {
-  ssr: false
+  ssr: false,
+  loading: () => <p>...</p>,
 });
 
 interface State {
@@ -24,7 +25,7 @@ const DEFAULT_STATE: State = {
   sceneCount: 0,
   cannonAngle: null,
   pointSprites: [],
-  pointSpriteCount: 0
+  pointSpriteCount: 0,
 };
 
 class GameRoot extends React.Component<{}, State> {
@@ -36,7 +37,7 @@ class GameRoot extends React.Component<{}, State> {
       pegs,
       ballsRemaining,
       pointSprites,
-      sceneCount
+      sceneCount,
     } = this.state;
     return (
       <div style={GameViewContainer}>
@@ -65,7 +66,7 @@ class GameRoot extends React.Component<{}, State> {
       this.setState({
         pegs,
         cannonAngle: null,
-        sceneCount: sceneCount + 1
+        sceneCount: sceneCount + 1,
       });
     }
   };
@@ -76,7 +77,7 @@ class GameRoot extends React.Component<{}, State> {
     this.setState({
       cannonAngle,
       ballsRemaining: ballsRemaining - 1,
-      sceneCount: sceneCount + 1
+      sceneCount: sceneCount + 1,
     });
   };
 
@@ -88,7 +89,7 @@ class GameRoot extends React.Component<{}, State> {
   private removePointSprite = (key: string) => {
     const { pointSprites } = this.state;
     const newSpriteList = pointSprites.filter(
-      pointSprite => pointSprite.key !== key
+      pointSprite => pointSprite.key !== key,
     );
     this.setState({ pointSprites: newSpriteList });
   };
@@ -102,12 +103,12 @@ class GameRoot extends React.Component<{}, State> {
       amount: points,
       transitionEnd: () => {
         this.removePointSprite(key);
-      }
+      },
     };
 
     this.setState({
       pointSprites: [...pointSprites, newSprite],
-      pointSpriteCount: newSpriteCount
+      pointSpriteCount: newSpriteCount,
     });
   };
 }
