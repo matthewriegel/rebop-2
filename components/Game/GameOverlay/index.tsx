@@ -1,5 +1,4 @@
 import * as React from "react";
-import PointSprite from "./PointSprite";
 import { OverlayStyle } from "./styles";
 
 export interface PointSprite {
@@ -9,20 +8,20 @@ export interface PointSprite {
 }
 
 interface Props {
-  pointSprites: PointSprite[];
+  roundScoe: number;
+  gameScore: number;
   ballsRemaining: number;
 }
 
-const GameOverlay: React.SFC<Props> = ({ pointSprites, ballsRemaining }) => (
+const GameOverlay: React.SFC<Props> = ({
+  roundScoe,
+  gameScore,
+  ballsRemaining,
+}) => (
   <div style={OverlayStyle}>
     <div>Turns remaining: {ballsRemaining}</div>
-    {pointSprites.map(pointSprite => (
-      <PointSprite
-        key={pointSprite.key}
-        points={pointSprite.amount}
-        transitionEnd={pointSprite.transitionEnd}
-      />
-    ))}
+    <div>Game score: {gameScore}</div>
+    <div>Round score: {roundScoe}</div>
   </div>
 );
 

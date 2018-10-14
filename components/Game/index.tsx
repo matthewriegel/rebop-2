@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import React from "react";
 import { PegCoordinates, TurnProps } from "./definitions";
 import { PEG_LIST_FIXTURE } from "./fixtures";
-import GameOverlay, { PointSprite } from "./GameOverlay";
+import GameOverlay from "./GameOverlay";
 import { GameViewContainer } from "./styles";
 
 const GameCanvas = dynamic<TurnProps>(import("./GameCanvas") as any, {
@@ -15,8 +15,8 @@ interface State {
   pegs: PegCoordinates[];
   cannonAngle: number | null;
   sceneCount: number;
-  pointSprites: PointSprite[];
-  pointSpriteCount: number;
+  gameScore: number;
+  roundScore: number;
 }
 
 const DEFAULT_STATE: State = {
@@ -24,8 +24,8 @@ const DEFAULT_STATE: State = {
   pegs: PEG_LIST_FIXTURE,
   sceneCount: 0,
   cannonAngle: null,
-  pointSprites: [],
-  pointSpriteCount: 0,
+  gameScore: 0,
+  roundScore: 0,
 };
 
 class GameRoot extends React.Component<{}, State> {
@@ -36,14 +36,16 @@ class GameRoot extends React.Component<{}, State> {
       cannonAngle,
       pegs,
       ballsRemaining,
-      pointSprites,
       sceneCount,
+      gameScore,
+      roundScore,
     } = this.state;
     return (
       <div style={GameViewContainer}>
         <GameOverlay
+          gameScore={gameScore}
+          roundScoe={roundScore}
           ballsRemaining={ballsRemaining}
-          pointSprites={pointSprites}
         />
         <GameCanvas
           fireCannon={this.fireCannon}
@@ -59,7 +61,10 @@ class GameRoot extends React.Component<{}, State> {
 
   private endTurn = (pegs: PegCoordinates[]) => {
     console.log("Turn End");
-    const { ballsRemaining, sceneCount } = this.state;
+    const { ballsRemaining, sceneCount, gameScore, roundScore } = this.state;
+
+    this.setState({ gameScore: gameScore + roundScore, roundScore: 0 });
+
     if (ballsRemaining <= 0 || !pegs.length) {
       this.endGame();
     } else {
@@ -86,30 +91,9 @@ class GameRoot extends React.Component<{}, State> {
     this.setState(DEFAULT_STATE);
   };
 
-  private removePointSprite = (key: string) => {
-    const { pointSprites } = this.state;
-    const newSpriteList = pointSprites.filter(
-      pointSprite => pointSprite.key !== key,
-    );
-    this.setState({ pointSprites: newSpriteList });
-  };
-
   private pointsRecieved = (points: number) => {
-    const { pointSprites, pointSpriteCount } = this.state;
-    const newSpriteCount = pointSpriteCount + 1;
-    const key = `${newSpriteCount}`;
-    const newSprite: PointSprite = {
-      key,
-      amount: points,
-      transitionEnd: () => {
-        this.removePointSprite(key);
-      },
-    };
-
-    this.setState({
-      pointSprites: [...pointSprites, newSprite],
-      pointSpriteCount: newSpriteCount,
-    });
+    const { roundScore } = this.state;
+    this.setState({ roundScore: roundScore + points });
   };
 }
 
