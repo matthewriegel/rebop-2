@@ -1,9 +1,9 @@
 import dynamic from "next/dynamic";
 import React from "react";
+import { GameViewContainer } from "./components";
 import { PegCoordinates, TurnProps } from "./definitions";
 import { PEG_LIST_FIXTURE } from "./fixtures";
 import GameOverlay from "./GameOverlay";
-import { GameViewContainer } from "./styles";
 
 const GameCanvas = dynamic<TurnProps>(import("./GameCanvas") as any, {
   ssr: false,
@@ -41,7 +41,7 @@ class GameRoot extends React.Component<{}, State> {
       roundScore,
     } = this.state;
     return (
-      <div style={GameViewContainer}>
+      <GameViewContainer>
         <GameOverlay
           gameScore={gameScore}
           roundScoe={roundScore}
@@ -55,7 +55,7 @@ class GameRoot extends React.Component<{}, State> {
           pointsRecieved={this.pointsRecieved}
           sceneKey={`${sceneCount}`}
         />
-      </div>
+      </GameViewContainer>
     );
   }
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TurnProps } from "../definitions";
+import { CanvasContainer } from "./components";
 import { getGame, getScene } from "./Phaser";
-import { CanvasStyle } from "./styles";
 
 class GameCanvas extends React.Component<TurnProps> {
   private canvasRef = React.createRef<HTMLCanvasElement>();
@@ -25,9 +25,9 @@ class GameCanvas extends React.Component<TurnProps> {
   public render() {
     console.log("rendering game");
     return (
-      <canvas style={CanvasStyle} ref={this.canvasRef}>
-        Game
-      </canvas>
+      <CanvasContainer>
+        <canvas ref={this.canvasRef}>Game</canvas>
+      </CanvasContainer>
     );
   }
 

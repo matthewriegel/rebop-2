@@ -1,5 +1,5 @@
 import * as React from "react";
-import { OverlayStyle } from "./styles";
+import { OverlayStyle } from "./components";
 
 export interface PointSprite {
   amount: number;
@@ -18,11 +18,11 @@ const GameOverlay: React.SFC<Props> = ({
   gameScore,
   ballsRemaining,
 }) => (
-  <div style={OverlayStyle}>
+  <OverlayStyle>
     <div>Turns remaining: {ballsRemaining}</div>
     <div>Game score: {gameScore}</div>
     <div>Round score: {roundScoe}</div>
-  </div>
+  </OverlayStyle>
 );
 
 export default GameOverlay;

@@ -3,5 +3,10 @@ export const ASSET_ENDPOINTS = {
   MARBLE: "static/marble.png",
   CIRCLE: "static/circle.png",
   BALL: "static/ball.png",
-  CANNON: "static/cannon.png"
+  CANNON: "static/cannon.png",
 };
+
+export enum Routes {
+  index = "/",
+  game = "/game",
+}
