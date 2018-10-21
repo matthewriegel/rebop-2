@@ -1,6 +1,11 @@
 import "normalize.css";
 import React from "react";
-import GameRoot from "../components/Game";
-import "../global.css";
+import GamePageBase from "../components/Pages/gameBase";
 
-export default (): React.ReactNode => <GameRoot />;
+class GamePage extends React.Component<{}> {
+  render() {
+    return <GamePageBase />;
+  }
+}
+
+export default GamePage;
