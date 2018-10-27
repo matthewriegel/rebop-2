@@ -1,5 +1,7 @@
 import dynamic from "next/dynamic";
 import React from "react";
+import ReactDOM from "react-dom";
+import Clickable from "../Clickable";
 import { GameViewContainer } from "./components";
 import { PegCoordinates, TurnProps } from "./definitions";
 import { PEG_LIST_FIXTURE } from "./fixtures";
@@ -29,6 +31,7 @@ const DEFAULT_STATE: State = {
 };
 
 class GameRoot extends React.Component<{}, State> {
+  private containerRef = React.createRef<any>();
   public state: State = DEFAULT_STATE;
 
   render() {
@@ -41,21 +44,28 @@ class GameRoot extends React.Component<{}, State> {
       roundScore,
     } = this.state;
     return (
-      <GameViewContainer>
-        <GameOverlay
-          gameScore={gameScore}
-          roundScoe={roundScore}
-          ballsRemaining={ballsRemaining}
-        />
-        <GameCanvas
-          fireCannon={this.fireCannon}
-          cannonAngle={cannonAngle}
-          pegs={pegs}
-          endTurn={this.endTurn}
-          pointsRecieved={this.pointsRecieved}
-          sceneKey={`${sceneCount}`}
-        />
-      </GameViewContainer>
+      <Clickable
+        onClick={() => {
+          const myDomNode = ReactDOM.findDOMNode(this.containerRef.current);
+          myDomNode.scrollIntoView();
+        }}
+      >
+        <GameViewContainer ref={this.containerRef}>
+          <GameOverlay
+            gameScore={gameScore}
+            roundScoe={roundScore}
+            ballsRemaining={ballsRemaining}
+          />
+          <GameCanvas
+            fireCannon={this.fireCannon}
+            cannonAngle={cannonAngle}
+            pegs={pegs}
+            endTurn={this.endTurn}
+            pointsRecieved={this.pointsRecieved}
+            sceneKey={`${sceneCount}`}
+          />
+        </GameViewContainer>
+      </Clickable>
     );
   }
 
