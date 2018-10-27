@@ -1,13 +1,18 @@
+import { Typography } from "@material-ui/core";
 import Link from "next/link";
 import "normalize.css";
 import React from "react";
+import Navbar from "../components/Navbar";
 import { Routes } from "../constants";
-import "../global.css";
 
 export default (): React.ReactNode => (
-  <div>
+  <React.Fragment>
+    <Navbar />
+    <Typography variant="h6" color="inherit">
+      Main Menu
+    </Typography>
     <Link href={Routes.game}>
-      <a>here</a>
+      <a>Start New Game</a>
     </Link>
-  </div>
+  </React.Fragment>
 );
