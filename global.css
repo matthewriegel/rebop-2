@@ -1,0 +1,4 @@
+body {
+  background-image: radial-gradient(circle, lightblue, lightyellow);
+  background-attachment: fixed;
+}

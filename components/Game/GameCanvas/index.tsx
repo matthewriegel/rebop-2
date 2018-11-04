@@ -23,7 +23,6 @@ class GameCanvas extends React.Component<TurnProps> {
   }
 
   public render() {
-    console.log("rendering game");
     return (
       <CanvasContainer>
         <canvas ref={this.canvasRef}>Game</canvas>

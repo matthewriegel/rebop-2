@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "./components";
 
 interface Props {
   onClick(): void;
@@ -14,17 +13,18 @@ const Clickable: React.SFC<Props> = ({
   onClick,
   children,
 }) => (
-  <Button
-    disabled={disabled}
+  <span
     onClick={event => {
       if (!bubble) {
         event.stopPropagation();
       }
-      onClick();
+      if (!disabled) {
+        onClick();
+      }
     }}
   >
     {children}
-  </Button>
+  </span>
 );
 
 export default Clickable;
