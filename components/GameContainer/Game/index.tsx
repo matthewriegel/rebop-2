@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import React from "react";
 import ReactDOM from "react-dom";
-import Clickable from "../Clickable";
+import Clickable from "../../Clickable";
 import { GameViewContainer } from "./components";
 import { PegCoordinates, TurnProps } from "./definitions";
 import { PEG_LIST_FIXTURE } from "./fixtures";

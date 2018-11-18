@@ -10,3 +10,7 @@ export enum Routes {
   index = "/",
   game = "/game",
 }
+
+export enum ElementId {
+  overlay = "overlay",
+}

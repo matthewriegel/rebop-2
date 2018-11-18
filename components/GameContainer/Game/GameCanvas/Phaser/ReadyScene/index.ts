@@ -1,5 +1,5 @@
 import { getPeg } from "..";
-import { ASSET_ENDPOINTS } from "../../../../../constants";
+import { ASSET_ENDPOINTS } from "../../../../../../constants";
 import { TurnProps } from "../../../definitions";
 import { GAME } from "../constants";
 import { GameEvents, ImageType } from "../definitions";

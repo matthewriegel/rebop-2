@@ -1,10 +1,10 @@
 import { isEmpty } from "lodash";
 import { getPeg } from "..";
-import { ASSET_ENDPOINTS } from "../../../../../constants";
+import { ASSET_ENDPOINTS } from "../../../../../../constants";
 import {
   ResetableTimeout,
-  resetableTimeout
-} from "../../../../../services/util/timeout";
+  resetableTimeout,
+} from "../../../../../../services/util/timeout";
 import { TurnProps } from "../../../definitions";
 import { GAME } from "../constants";
 import { GameEvents, ImageType, ObjectType, PegData } from "../definitions";
@@ -49,7 +49,7 @@ export class ReplayScene extends Phaser.Scene {
       true,
       true,
       true,
-      false // No bottom collision so we know when the ball has exited
+      false, // No bottom collision so we know when the ball has exited
     );
 
     const { cannonAngle, pegs = [] } = this.props;
@@ -66,15 +66,15 @@ export class ReplayScene extends Phaser.Scene {
           this,
           item.x * GAME.WIDTH,
           item.y * GAME.HEIGHT,
-          index
+          index,
         );
         return {
           coordinates: item,
           status: PegStatus.default,
           key: index,
-          gameObject: newPeg
+          gameObject: newPeg,
         };
-      }
+      },
     );
 
     this.matter.world.on(
@@ -82,7 +82,7 @@ export class ReplayScene extends Phaser.Scene {
       (
         _event: any,
         objectA: { gameObject: Phaser.Physics.Matter.Image },
-        objectB: { gameObject: Phaser.Physics.Matter.Image }
+        objectB: { gameObject: Phaser.Physics.Matter.Image },
       ) => {
         this.clearPegTimeout && this.clearPegTimeout.reset();
 
@@ -94,11 +94,11 @@ export class ReplayScene extends Phaser.Scene {
         }
 
         const collidedPlayer = [imageA, imageB].find(
-          image => image.name === ObjectType.Player
+          image => image.name === ObjectType.Player,
         );
 
         const collidedPeg = [imageA, imageB].find(
-          image => image.name === ObjectType.Peg
+          image => image.name === ObjectType.Peg,
         );
 
         if (!collidedPlayer || !collidedPeg) {
@@ -107,7 +107,7 @@ export class ReplayScene extends Phaser.Scene {
 
         const pegData = collidedPeg.data.values as PegData;
         this.pegHit(pegData);
-      }
+      },
     );
   }
 
